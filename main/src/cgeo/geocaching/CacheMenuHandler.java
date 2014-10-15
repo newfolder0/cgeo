@@ -3,6 +3,8 @@ package cgeo.geocaching;
 import cgeo.calendar.CalendarAddon;
 import cgeo.geocaching.apps.cache.navi.NavigationAppFactory;
 import cgeo.geocaching.apps.cache.navi.NavigationSelectionActionProvider;
+import cgeo.geocaching.export.FieldnoteExport;
+import cgeo.geocaching.export.GpxExport;
 import cgeo.geocaching.ui.AbstractUIFactory;
 
 import android.app.Activity;
@@ -12,6 +14,9 @@ import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Shared menu handling for all activities having menu items related to a cache. <br>
@@ -46,6 +51,11 @@ public final class CacheMenuHandler extends AbstractUIFactory {
             activity = ((Fragment)activityInterface).getActivity();
         }
 
+        // Make new cache list containing current cache - for export classes which require list.
+        // This is untidy, it would be better to make new export constructors which accept single caches.
+        final List<Geocache> cacheAsList = new ArrayList<>();
+        cacheAsList.add(cache);
+
         switch (item.getItemId()) {
             case R.id.menu_default_navigation:
                 activityInterface.navigateTo();
@@ -74,6 +84,12 @@ public final class CacheMenuHandler extends AbstractUIFactory {
                 return false;
             case R.id.menu_calendar:
                 CalendarAddon.addToCalendarWithIntent(activity, cache);
+                return true;
+            case R.id.menu_export_gpx:
+                new GpxExport().export(cacheAsList, activity);
+                return true;
+            case R.id.menu_export_fieldnotes:
+                new FieldnoteExport().export(cacheAsList, activity);
                 return true;
             default:
                 return false;
