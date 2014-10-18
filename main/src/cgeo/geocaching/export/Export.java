@@ -21,6 +21,16 @@ interface Export {
     public void export(List<Geocache> caches, Activity activity);
 
     /**
+     * Export a single cache {@link cgeo.geocaching.Geocache} to various formats.
+     *
+     * @param cache
+     *            The {@link cgeo.geocaching.Geocache} to be exported.
+     * @param activity
+     *            optional: Some exporters might have an UI which requires an {@link Activity}
+     */
+    public void export(Geocache cache, Activity activity);
+
+    /**
      * Get the localized name of this exporter.
      *
      * @return localized name

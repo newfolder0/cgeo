@@ -42,6 +42,23 @@ public class FieldnoteExport extends AbstractExport {
         super(getString(R.string.export_fieldnotes));
     }
 
+    /*
+     * Overloaded export method to allow exporting a single cache by putting
+     * it in an empty cache array and passing that to the array export method.
+     */
+    @Override
+    public void export(final Geocache cache, final Activity activity) {
+        final Geocache[] cacheArray = { cache };
+        if (null == activity) {
+            // No activity given, so no user interaction possible.
+            // Start export with default parameters.
+            new ExportTask(null, false, false).execute(cacheArray);
+        } else {
+            // Show configuration dialog
+            getExportOptionsDialog(cacheArray, activity).show();
+        }
+    }
+
     @Override
     public void export(final List<Geocache> cachesList, final Activity activity) {
         final Geocache[] caches = cachesList.toArray(new Geocache[cachesList.size()]);
@@ -59,10 +76,11 @@ public class FieldnoteExport extends AbstractExport {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         final Context themedContext;
-        if (Settings.isLightSkin() && VERSION.SDK_INT < VERSION_CODES.HONEYCOMB)
+        if (Settings.isLightSkin() && VERSION.SDK_INT < VERSION_CODES.HONEYCOMB) {
             themedContext = new ContextThemeWrapper(activity, R.style.dark);
-        else
+        } else {
             themedContext = activity;
+        }
         final View layout = View.inflate(themedContext, R.layout.fieldnote_export_dialog, null);
 
         builder.setView(layout);

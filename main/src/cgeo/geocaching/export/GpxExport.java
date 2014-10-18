@@ -45,6 +45,29 @@ public class GpxExport extends AbstractExport {
         super(getString(R.string.export_gpx));
     }
 
+    /*
+     * Overloaded export method to allow exporting a single cache by putting
+     * it in an empty string array and passing that to the array export method.
+     */
+    @Override
+    public void export(final Geocache cache, final Activity activity) {
+        //        final List<Geocache> cacheAsList = new ArrayList<>();
+        //        cacheAsList.add(cache);
+        //
+        //        export(cacheAsList, activity);
+
+        final String[] geocode = { cache.getGeocode() }; // get geocode, put into string array of ONE ELEMENT
+        if (null == activity) {
+            // No activity given, so no user interaction possible.
+            // Start export with default parameters.
+            new ExportTask(null).execute(geocode);
+
+        } else {
+            // Show configuration dialog
+            getExportDialog(geocode, activity).show();
+        }
+    }
+
     @Override
     public void export(final List<Geocache> caches, final Activity activity) {
         final String[] geocodes = getGeocodes(caches);
@@ -63,10 +86,11 @@ public class GpxExport extends AbstractExport {
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 
         final Context themedContext;
-        if (Settings.isLightSkin() && VERSION.SDK_INT < VERSION_CODES.HONEYCOMB)
+        if (Settings.isLightSkin() && VERSION.SDK_INT < VERSION_CODES.HONEYCOMB) {
             themedContext = new ContextThemeWrapper(activity, R.style.dark);
-        else
+        } else {
             themedContext = activity;
+        }
 
         final View layout = View.inflate(themedContext, R.layout.gpx_export_dialog, null);
         builder.setView(layout);

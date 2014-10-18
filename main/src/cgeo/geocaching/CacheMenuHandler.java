@@ -15,9 +15,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Shared menu handling for all activities having menu items related to a cache. <br>
  * TODO: replace by a fragment
@@ -53,8 +50,8 @@ public final class CacheMenuHandler extends AbstractUIFactory {
 
         // Make new cache list containing current cache - for export classes which require list.
         // This is untidy, it would be better to make new export constructors which accept single caches.
-        final List<Geocache> cacheAsList = new ArrayList<>();
-        cacheAsList.add(cache);
+        //        final List<Geocache> cacheAsList = new ArrayList<>();
+        //        cacheAsList.add(cache);
 
         switch (item.getItemId()) {
             case R.id.menu_default_navigation:
@@ -86,10 +83,10 @@ public final class CacheMenuHandler extends AbstractUIFactory {
                 CalendarAddon.addToCalendarWithIntent(activity, cache);
                 return true;
             case R.id.menu_export_gpx:
-                new GpxExport().export(cacheAsList, activity);
+                new GpxExport().export(cache, activity);
                 return true;
             case R.id.menu_export_fieldnotes:
-                new FieldnoteExport().export(cacheAsList, activity);
+                new FieldnoteExport().export(cache, activity);
                 return true;
             default:
                 return false;
