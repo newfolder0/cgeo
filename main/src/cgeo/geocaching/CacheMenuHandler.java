@@ -48,11 +48,6 @@ public final class CacheMenuHandler extends AbstractUIFactory {
             activity = ((Fragment)activityInterface).getActivity();
         }
 
-        // Make new cache list containing current cache - for export classes which require list.
-        // This is untidy, it would be better to make new export constructors which accept single caches.
-        //        final List<Geocache> cacheAsList = new ArrayList<>();
-        //        cacheAsList.add(cache);
-
         switch (item.getItemId()) {
             case R.id.menu_default_navigation:
                 activityInterface.navigateTo();
