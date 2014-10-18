@@ -51,11 +51,6 @@ public class GpxExport extends AbstractExport {
      */
     @Override
     public void export(final Geocache cache, final Activity activity) {
-        //        final List<Geocache> cacheAsList = new ArrayList<>();
-        //        cacheAsList.add(cache);
-        //
-        //        export(cacheAsList, activity);
-
         final String[] geocode = { cache.getGeocode() }; // get geocode, put into string array of ONE ELEMENT
         if (null == activity) {
             // No activity given, so no user interaction possible.
