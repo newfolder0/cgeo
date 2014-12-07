@@ -3,8 +3,7 @@ package cgeo.geocaching;
 import cgeo.calendar.CalendarAddon;
 import cgeo.geocaching.apps.cache.navi.NavigationAppFactory;
 import cgeo.geocaching.apps.cache.navi.NavigationSelectionActionProvider;
-import cgeo.geocaching.export.FieldnoteExport;
-import cgeo.geocaching.export.GpxExport;
+import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.ui.AbstractUIFactory;
 
 import android.app.Activity;
@@ -76,12 +75,6 @@ public final class CacheMenuHandler extends AbstractUIFactory {
                 return false;
             case R.id.menu_calendar:
                 CalendarAddon.addToCalendarWithIntent(activity, cache);
-                return true;
-            case R.id.menu_export_gpx:
-                new GpxExport().export(cache, activity);
-                return true;
-            case R.id.menu_export_fieldnotes:
-                new FieldnoteExport().export(cache, activity);
                 return true;
             default:
                 return false;

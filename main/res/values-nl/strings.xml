@@ -74,12 +74,13 @@
   <string name="log_tb_visit">Bezoek</string>
   <string name="log_tb_drop">Hier droppen</string>
   <string name="log_tb_changeall">Wijzig alles</string>
-  <string name="log_save">Opslaan</string>
+  <string name="log_save">Off line opslaan</string>
   <string name="log_saving">Log opslaan…</string>
   <string name="log_saving_and_uploading">Verzenden van log en uploaden foto…</string>
   <string name="log_clear">Wissen</string>
   <string name="log_post_not_possible">Laden Log Pagina…</string>
   <string name="log_add">Toevoegen</string>
+  <string name="log_repeat">Herhaal laatste log</string>
   <string name="log_no_rating">Geen beoordeling</string>
   <string name="log_stars_1_description">Slecht</string>
   <string name="log_stars_15_description">Redelijk slecht</string>
@@ -166,7 +167,6 @@
   <string name="err_point_unknown_position">Sorry, c:geo kan niet bepalen waar je bent.</string>
   <string name="err_point_no_position_given_title">Info benodigd</string>
   <string name="err_point_no_position_given">Geef op zijn minst lengte- en breedtegraad of afstand en richting. Of vul alle 4 de velden.</string>
-  <string name="err_point_curr_position_unavailable">c:geo heeft de huidige coördinaten nog niet. Even geduld a.u.b….</string>
   <string name="err_point_bear_and_dist_title">Hulp nodig?</string>
   <string name="err_point_bear_and_dist">Vul zowel richting als afstand. Richting is hoek van 0 to 360 graden t.o.v. het noorden. Afstand mag met of zonder eenheid.</string>
   <string name="err_log_load_data">Sorry, c:geo kan data om bezoek te loggen niet laden.</string>
@@ -211,6 +211,7 @@
   <string name="loc_net">Netwerk</string>
   <string name="loc_fused">Gecombineerd</string>
   <string name="loc_low_power">Batterij bijna leeg</string>
+  <string name="loc_home">Thuis coördinaten</string>
   <string name="loc_gps">GPS</string>
   <string name="loc_sat">Sat</string>
   <string name="loc_trying">Proberen te lokaliseren</string>
@@ -298,6 +299,7 @@
   <string name="caches_filter_popularity_ratio">Favorieten [%]</string>
   <string name="caches_removing_from_history">Verwijderen uit geschiedenis…</string>
   <string name="caches_clear_offlinelogs">Verwijderen offline logs</string>
+  <string name="caches_clear_offlinelogs_message">Wil je de offline logs wissen?</string>
   <string name="caches_clear_offlinelogs_progress">Offline logs worden verwijderd</string>
   <string name="list_menu_create">Maak nieuwe lijst</string>
   <string name="list_menu_drop">Verwijder huidige lijst</string>
@@ -374,6 +376,8 @@
   <string name="settings_activate_oc_uk">Activeren</string>
   <string name="init_oc_uk_description">c:geo authoriseren met opencaching.org.uk om naar caches te zoeken en het filteren van gevonden caches.</string>
   <string name="init_gcvote">GCvote.com</string>
+  <string name="init_gcvote_password_description">Om een cache te kunnen beoordelen, volg de instructies op GCVote.com en geef hier uw GCVote wachtwoord op.</string>
+  <string name="err_gcvote_send_rating">Fout bij het verzenden van beoordeling, controleer het GCVote wachtwoord in instellingen of maak deze leeg.</string>
   <string name="init_twitter">Twitter</string>
   <string name="settings_activate_twitter">Activeren</string>
   <string name="init_username">Gebruikersnaam</string>
@@ -645,7 +649,7 @@
   <string name="cache_menu_streetview">Street View</string>
   <string name="cache_menu_browser">Open in browser</string>
   <string name="cache_menu_visit">Log bezoek</string>
-  <string name="cache_menu_visit_offline">Log bezoek offline</string>
+  <string name="cache_menu_visit_offline">Enkele klik offline log</string>
   <string name="cache_menu_spoilers">Spoiler afbeeldingen</string>
   <string name="cache_menu_around">Caches rondom</string>
   <string name="cache_menu_event">Toevoegen aan kalender</string>
@@ -657,6 +661,7 @@
   <string name="cache_menu_oruxmaps">OruxMaps</string>
   <string name="cache_menu_navigon">Navigon</string>
   <string name="cache_menu_pebble">Pebble</string>
+  <string name="cache_menu_android_wear">Android Wear</string>
   <string name="cache_status">Status</string>
   <string name="cache_status_offline_log">Log opgeslagen</string>
   <string name="cache_status_found">Gevonden</string>
@@ -766,6 +771,7 @@
   <string name="search_clear_history">Maak geschiedenis leeg</string>
   <string name="search_history_cleared">Geschiedenis leeggemaakt</string>
   <string name="waypoint_coordinate_formats_plain">Plat</string>
+  <string name="from_clipboard">Van klembord</string>
   <string name="visit_tweet">Post deze vondst op Twitter</string>
   <string name="map_map">Kaart</string>
   <string name="map_live">Live kaart</string>
@@ -870,7 +876,7 @@
   <string name="helper_contacts_description">Maakt het mogelijk een contactpersoon (uit je adresboek) te openen rechtstreeks vanuit een log, zodat je vrienden makkelijker om hulp kunt vragen.</string>
   <string name="helper_sendtocgeo_description">Verzenden naar c:geo is een browserextensie <strong>voor uw PC</strong>. Tijdens het browsen op geocaching.com, kunt u caches verzenden naar uw smartphone met een klik direct in de browser.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Simpele bruikbare applicatie om online kaarten weer te geven en deze voor offline gebruik te downloaden (alleen rasterkarten). Ook ondersteuning voor track recording, poi afhandeling en vele andere handige functies.</string>
+  <string name="helper_locus_description">Outdoor navigatie app voor uw telefoon of Tablet. Topo kaarten offline bekijken, uw route vastleggen, geocaches zoeken, gebruik een stem gids en meer.</string>
   <string name="helper_gpsstatus_title">GPS Status</string>
   <string name="helper_gpsstatus_description">De radar van deze applicatie kan gebruikt worden samen met c:geo. Het bied ook vele andere GPS gerelateerde informatie.</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>
@@ -1173,6 +1179,7 @@
     <item quantity="one">%s favoriet</item>
     <item quantity="other">%s favorieten</item>
   </plurals>
+  <string name="more_than_percent_favorite_points">&gt; %d %% favorieten</string>
   <string name="cgeo_shortcut">c:geo snelkoppeling</string>
   <string name="create_shortcut">Maak snelkoppeling</string>
   <string name="send">Verzenden</string>

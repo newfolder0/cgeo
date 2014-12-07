@@ -1,6 +1,6 @@
 package cgeo.geocaching.connector;
 
-import cgeo.geocaching.ICache;
+import cgeo.geocaching.Geocache;
 import cgeo.geocaching.R;
 import cgeo.geocaching.SearchResult;
 import cgeo.geocaching.Trackable;
@@ -21,7 +21,7 @@ import cgeo.geocaching.connector.trackable.GeokretyConnector;
 import cgeo.geocaching.connector.trackable.TrackableConnector;
 import cgeo.geocaching.connector.trackable.TravelBugConnector;
 import cgeo.geocaching.connector.trackable.UnknownTrackableConnector;
-import cgeo.geocaching.geopoint.Viewport;
+import cgeo.geocaching.location.Viewport;
 
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.annotation.NonNull;
@@ -144,7 +144,7 @@ public final class ConnectorFactory {
     }
 
     public static @NonNull
-    IConnector getConnector(final ICache cache) {
+    IConnector getConnector(final Geocache cache) {
         return getConnector(cache.getGeocode());
     }
 

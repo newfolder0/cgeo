@@ -2,7 +2,6 @@ package cgeo.geocaching;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import cgeo.geocaching.connector.gc.GCConstants;
 import cgeo.geocaching.maps.mapsforge.MapsforgeMapProvider;
 import cgeo.geocaching.settings.Settings;
 
@@ -21,15 +20,13 @@ public class SettingsTest extends ActivityInstrumentationTestCase2<MainActivity>
      * this should work fine without an exception (once there was an exception because of the empty map file string)
      */
     public static void testSettingsException() {
-        final String mapFile = Settings.getMapFile();
         // We just want to ensure that it does not throw any exception but we do not know anything about the result
-        MapsforgeMapProvider.isValidMapFile(mapFile);
-        assertThat(true).isTrue();
+        MapsforgeMapProvider.isValidMapFile(Settings.getMapFile());
     }
 
     public static void testSettings() {
         // unfortunately, several other tests depend on being a premium member and will fail if run by a basic member
-        assertThat(Settings.getGCMemberStatus()).isEqualTo(GCConstants.MEMBER_STATUS_PM);
+        assertThat(Settings.isGCPremiumMember()).isTrue();
     }
 
     public static void testDeviceHasNormalLogin() {

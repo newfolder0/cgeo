@@ -9,14 +9,14 @@ import cgeo.geocaching.connector.gc.GCParser;
 import cgeo.geocaching.connector.gc.MapTokens;
 import cgeo.geocaching.connector.gc.Tile;
 import cgeo.geocaching.enumerations.CacheType;
-import cgeo.geocaching.enumerations.LiveMapStrategy.Strategy;
 import cgeo.geocaching.enumerations.LoadFlags;
 import cgeo.geocaching.enumerations.LogType;
 import cgeo.geocaching.enumerations.StatusCode;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.Viewport;
 import cgeo.geocaching.list.StoredList;
 import cgeo.geocaching.loaders.RecaptchaReceiver;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.Viewport;
+import cgeo.geocaching.maps.LiveMapStrategy.Strategy;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.settings.TestSettings;
 import cgeo.geocaching.test.RegExPerformanceTest;
@@ -107,7 +107,7 @@ public class CgeoApplicationTest extends CGeoTestCase {
     }
 
     /**
-     * Test {@link GCParser#searchByGeocode(String, String, int, boolean, CancellableHandler)}
+     * Test {@link Geocache#searchByGeocode(String, String, int, boolean, CancellableHandler)}
      */
     @MediumTest
     public static Geocache testSearchByGeocode(final String geocode) {
@@ -276,14 +276,14 @@ public class CgeoApplicationTest extends CGeoTestCase {
             public void run() {
                 final SearchResult search = GCParser.searchByUsername("blafoo", CacheType.WEBCAM, false, null);
                 assertThat(search).isNotNull();
-                assertThat(search.getTotalCountGC()).isEqualTo(4);
+                assertThat(search.getTotalCountGC()).isEqualTo(5);
                 assertThat(search.getGeocodes().contains("GCP0A9")).isTrue();
             }
         });
     }
 
     /**
-     * Test {@link ConnectorFactory#searchByViewport(Viewport, String)}
+     * Test {@link ConnectorFactory#searchByViewport(Viewport, MapTokens)}
      */
     @MediumTest
     public static void testSearchByViewport() {
@@ -338,7 +338,7 @@ public class CgeoApplicationTest extends CGeoTestCase {
     }
 
     /**
-     * Test {@link ConnectorFactory#searchByViewport(Viewport, String)}
+     * Test {@link ConnectorFactory#searchByViewport(Viewport, MapTokens)}
      */
     @MediumTest
     public static void testSearchByViewportNotLoggedIn() {

@@ -2,7 +2,7 @@ package cgeo.geocaching;
 
 import cgeo.geocaching.compatibility.Compatibility;
 import cgeo.geocaching.files.LocalStorage;
-import cgeo.geocaching.geopoint.GeopointFormatter.Format;
+import cgeo.geocaching.location.GeopointFormatter.Format;
 import cgeo.geocaching.network.Network;
 import cgeo.geocaching.network.Parameters;
 import cgeo.geocaching.settings.Settings;
@@ -137,11 +137,6 @@ public final class StaticMapsProvider {
 
     /**
      * Deletes and download all Waypoints static maps.
-     *
-     * @param cache
-     *            The cache instance
-     * @param edge
-     *            The boundings
      */
     private static Observable<String> refreshAllWpStaticMaps(final Geocache cache, final int width, final int height) {
         LocalStorage.deleteFilesWithPrefix(cache.getGeocode(), MAP_FILENAME_PREFIX + WAYPOINT_PREFIX);

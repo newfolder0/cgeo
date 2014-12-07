@@ -1,7 +1,7 @@
 package cgeo.geocaching.apps.cache.navi;
 
 import cgeo.geocaching.R;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
 import cgeo.geocaching.utils.Log;
 
 import android.app.Activity;
@@ -12,7 +12,7 @@ abstract class GoogleNavigationApp extends AbstractPointNavigationApp {
 
     private final String mode;
 
-    protected GoogleNavigationApp(final int nameResourceId, final int id, final String mode) {
+    private GoogleNavigationApp(final int nameResourceId, final int id, final String mode) {
         super(getString(nameResourceId), id, null);
         this.mode = mode;
     }
@@ -23,7 +23,7 @@ abstract class GoogleNavigationApp extends AbstractPointNavigationApp {
     }
 
     @Override
-    public void navigate(Activity activity, Geopoint coords) {
+    public void navigate(final Activity activity, final Geopoint coords) {
         try {
             activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri
                     .parse("google.navigation:ll=" + coords.getLatitude() + ","

@@ -4,7 +4,7 @@ import cgeo.geocaching.Geocache;
 import cgeo.geocaching.Intents;
 import cgeo.geocaching.R;
 import cgeo.geocaching.Waypoint;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
 import cgeo.geocaching.utils.ProcessUtils;
 
 import android.app.Activity;
@@ -13,8 +13,8 @@ import android.content.Intent;
 /**
  * For use with any Android Wear geocaching apps which can handle the intent action below.
  */
-public class AndroidWearApp extends AbstractPointNavigationApp {
-    public static final String INTENT_ACTION = "cgeo.geocaching.wear.NAVIGATE_TO";
+class AndroidWearApp extends AbstractPointNavigationApp {
+    private static final String INTENT_ACTION = "cgeo.geocaching.wear.NAVIGATE_TO";
 
     public AndroidWearApp() {
         super(getString(R.string.cache_menu_android_wear), R.id.cache_app_android_wear, INTENT_ACTION, null);

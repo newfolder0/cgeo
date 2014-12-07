@@ -51,7 +51,7 @@ public class RotationProvider extends LooperCallbacks<Float> implements SensorEv
             SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
         }
         SensorManager.getOrientation(rotationMatrix, orientation);
-        subscriber.onNext((float) (orientation[0] * 180 / Math.PI));
+        subject.onNext((float) (orientation[0] * 180 / Math.PI));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class RotationProvider extends LooperCallbacks<Float> implements SensorEv
             Log.d("RotationProvider: starting the rotation provider");
             sensorManager.registerListener(this, rotationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
-            subscriber.onError(new RuntimeException("rotation sensor is absent on this device"));
+            subject.onError(new RuntimeException("rotation sensor is absent on this device"));
         }
     }
 
@@ -77,7 +77,7 @@ public class RotationProvider extends LooperCallbacks<Float> implements SensorEv
     }
 
     public static Observable<Float> create(final Context context, final boolean lowPower) {
-        return Observable.create(new RotationProvider(context, lowPower));
+        return Observable.create(new RotationProvider(context, lowPower)).onBackpressureDrop();
     }
 
 }

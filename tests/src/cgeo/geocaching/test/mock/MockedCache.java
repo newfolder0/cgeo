@@ -2,15 +2,17 @@ package cgeo.geocaching.test.mock;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import cgeo.geocaching.ICache;
+import cgeo.geocaching.Geocache;
 import cgeo.geocaching.Image;
 import cgeo.geocaching.Trackable;
 import cgeo.geocaching.connector.gc.GCConstants;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
 import cgeo.geocaching.utils.TextUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.mapsforge.core.IOUtils;
+
+import junit.framework.Assert;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,12 +20,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import junit.framework.Assert;
-
-public abstract class MockedCache implements ICache {
+public abstract class MockedCache extends Geocache {
 
     final protected Geopoint coords;
-    private String data;
+    private final String data;
     private String mockedDataUser;
 
     protected MockedCache(final Geopoint coords) {
@@ -38,13 +38,13 @@ public abstract class MockedCache implements ICache {
         return mockedDataUser;
     }
 
-    public void setMockedDataUser(String mockedDataUser) {
+    public void setMockedDataUser(final String mockedDataUser) {
         this.mockedDataUser = mockedDataUser;
         assertThat(StringUtils.isNotBlank(this.mockedDataUser)).isTrue();
     }
 
     public static String getDateFormat() {
-        return "dd/MM/yyyy";
+        return "yyyy-MM-dd";
     }
 
     /*
@@ -71,7 +71,7 @@ public abstract class MockedCache implements ICache {
             }
 
             return TextUtils.replaceWhitespace(buffer.toString());
-        } catch (IOException e) {
+        } catch (final IOException e) {
             Assert.fail(e.getMessage());
         } finally {
             IOUtils.closeQuietly(is);

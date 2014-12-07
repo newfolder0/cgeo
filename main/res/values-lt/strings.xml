@@ -74,12 +74,13 @@
   <string name="log_tb_visit">Apsilankė</string>
   <string name="log_tb_drop">Paliktas</string>
   <string name="log_tb_changeall">Keisti visus</string>
-  <string name="log_save">Išsaugoti</string>
+  <string name="log_save">Išsaugoti neprisijungus</string>
   <string name="log_saving">Siunčiamas įrašas…</string>
   <string name="log_saving_and_uploading">Siunčiamas įrašas ir įkeliama nuotrauka…</string>
   <string name="log_clear">Išvalyti</string>
   <string name="log_post_not_possible">Įkeliamas įrašo puslapis…</string>
   <string name="log_add">Pridėti</string>
+  <string name="log_repeat">Pakartoti paskutinį įrašą</string>
   <string name="log_no_rating">Nėra reitingo</string>
   <string name="log_stars_1_description">Prasta</string>
   <string name="log_stars_15_description">Pakankamai prasta</string>
@@ -166,7 +167,6 @@
   <string name="err_point_unknown_position">c:geo neranda Jūsų buvimo vietos.</string>
   <string name="err_point_no_position_given_title">Reikalinga informacija</string>
   <string name="err_point_no_position_given">Užpildykite bent platumą ir ilgumą arba atstumą ir azimutą. Taip pat galite užpildyt ir visus keturis laukelius.</string>
-  <string name="err_point_curr_position_unavailable">c:geo dar negavo vietos koordinačių. Prašome palaukti…</string>
   <string name="err_point_bear_and_dist_title">Reikalinga pagalba?</string>
   <string name="err_point_bear_and_dist">Užpildykite azimutą ir atstumą. Azimutas tai nuo 0 iki 360 laipsnių kampas nuo šiaurės. Atstumas nereikalauja matavimo vienetų.</string>
   <string name="err_log_load_data">c:geo negali įkelti duomenų reikalingų apsilankymui įrašyti.</string>
@@ -211,6 +211,7 @@
   <string name="loc_net">Tinklas</string>
   <string name="loc_fused">Sujungta</string>
   <string name="loc_low_power">Energijos taupymas</string>
+  <string name="loc_home">Namų koordinatės</string>
   <string name="loc_gps">GPS</string>
   <string name="loc_sat">Pal.</string>
   <string name="loc_trying">Bandoma nustatyti</string>
@@ -299,6 +300,7 @@
   <string name="caches_filter_popularity_ratio">Kaip mėgiamos [%]</string>
   <string name="caches_removing_from_history">Pašalinama iš Istorijos…</string>
   <string name="caches_clear_offlinelogs">Išvalyti išsaugotus įrašus</string>
+  <string name="caches_clear_offlinelogs_message">Ar norite išvalyti išsaugotus įrašus?</string>
   <string name="caches_clear_offlinelogs_progress">Išvalomi išsaugoti įrašai</string>
   <string name="list_menu_create">Sukurti naują sąrašą</string>
   <string name="list_menu_drop">Išmesti dabartinį sąrašą</string>
@@ -365,6 +367,8 @@
   <string name="settings_activate_oc_uk">Aktyvuoti</string>
   <string name="init_oc_uk_description">Leiskite c:geo prisijungti prie opencaching.org.uk tam, kad galėtumėt ieškoti slėptuvių ir pasiekti/filtruoti rastas slėptuves.</string>
   <string name="init_gcvote">GCvote.com</string>
+  <string name="init_gcvote_password_description">Kad būtų galima reitinguoti slėptuvę, sekite instrukciją GCVote.com svetainėje ir čia  įveskite GCVote slaptažodį.</string>
+  <string name="err_gcvote_send_rating">Klaida siunčiant reitingą, patikrinkite GCVote slaptažodį parametruose arba jį ištrinkite.</string>
   <string name="init_twitter">Twitter</string>
   <string name="settings_activate_twitter">Aktyvuoti</string>
   <string name="init_username">Vartotojo vardas</string>
@@ -632,7 +636,7 @@
   <string name="cache_menu_streetview">Street View</string>
   <string name="cache_menu_browser">Atidaryti naršyklėje</string>
   <string name="cache_menu_visit">Registruoti</string>
-  <string name="cache_menu_visit_offline">Registruoti neprisijungus</string>
+  <string name="cache_menu_visit_offline">Vienu paspaudimu žurnalo įrašo išsaugojimas</string>
   <string name="cache_menu_spoilers">Užuominų nuotraukos</string>
   <string name="cache_menu_around">Slėptuvės aplink</string>
   <string name="cache_menu_event">Įtraukti į kalendorių</string>
@@ -752,6 +756,7 @@
   <string name="search_clear_history">Išvalyti istoriją</string>
   <string name="search_history_cleared">Istorija išvalyta</string>
   <string name="waypoint_coordinate_formats_plain">Paprastas</string>
+  <string name="from_clipboard">Iš mainų srities</string>
   <string name="visit_tweet">Skelbti radybas Twitter paskytoje</string>
   <string name="map_map">Išsaugotos slėptuvės</string>
   <string name="map_live">Slėptuvės iš interneto</string>
@@ -856,7 +861,7 @@
   <string name="helper_contacts_description">Leidžia tiesiai iš įrašo atidaryti kontakto kortelę (iš jūsų adresų knygos), kad galėtumėte susisiekti su draugais paprašyti pagalbos.</string>
   <string name="helper_sendtocgeo_description">Send to c:geo yra <strong>jūsų kompiuterio</strong> naršyklės priedas . Kai naršote geocaching.com, jūs galite siųsti slėptuves į savo išmanųjį telefoną tiesiog naršyklės viduje paspausdami mygtuką.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Patogi programa, kuri rodo žemėlapius tiesiai iš interneto ir suteikia galimybę atsisiųsti juos į prietaisą (tik rastrinius žemėlapius). Ji taip pat palaiko nukeliauto kelio įrašymą, lankytinų vietų valdymą ir turi daug kitų naudingų funkcijų.</string>
+  <string name="helper_locus_description">Navigacijos programa Jūsų telefonui. Žiūrėkite išsaugotus topo žemėlapius, įrašykite savo maršrutą, ieškokite slėptuves, naudokite balso komandas ir dar daugiau.</string>
   <string name="helper_gpsstatus_title">GPS Status &amp; Toolbox</string>
   <string name="helper_gpsstatus_description">Kartu su c:geo galite naudoti šioje programoje esantį radarą. Ji taip pat siūlo daug kitos su GPS susijusios informacijos.</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>
@@ -1163,6 +1168,7 @@
     <item quantity="few">%s mėgiamos</item>
     <item quantity="other">%s mėgiamų</item>
   </plurals>
+  <string name="more_than_percent_favorite_points">&gt; %d%% megstami</string>
   <string name="cgeo_shortcut">c:geo nuoroda</string>
   <string name="create_shortcut">Sukurti nuorodą</string>
   <string name="send">Siųsti</string>

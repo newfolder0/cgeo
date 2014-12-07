@@ -74,7 +74,6 @@
   <string name="log_tb_visit">Obisk</string>
   <string name="log_tb_drop">Pusti v zakladu</string>
   <string name="log_tb_changeall">Spremeni vse</string>
-  <string name="log_save">Shrani</string>
   <string name="log_saving">Pošiljam…</string>
   <string name="log_saving_and_uploading">Pošiljam zapis in nalagam sliko…</string>
   <string name="log_clear">Počisti</string>
@@ -166,7 +165,6 @@
   <string name="err_point_unknown_position">c:geo ne ve kje ste.</string>
   <string name="err_point_no_position_given_title">Potrebne informacije</string>
   <string name="err_point_no_position_given">Vnesite vsaj koordinate ali pa razdaljo in smer. Izpolnete lahko tudi vsa polja.</string>
-  <string name="err_point_curr_position_unavailable">c:geo še vedno nima trenutnih koordinat. Prosimo počakajte…</string>
   <string name="err_point_bear_and_dist_title">Potrebujete pomoč?</string>
   <string name="err_point_bear_and_dist">Vnesite smer in razdaljo. Smer je kot med 0 in 360 stopinjami od severa. Razdalja je lahko z ali brez enot.</string>
   <string name="err_log_load_data">c:geo ni mogel naložiti podatkov za zapis obiska.</string>
@@ -643,7 +641,6 @@
   <string name="cache_menu_streetview">Pogled ulic</string>
   <string name="cache_menu_browser">Odpri v brskalniku</string>
   <string name="cache_menu_visit">Objavi zapis</string>
-  <string name="cache_menu_visit_offline">Shrani zapis</string>
   <string name="cache_menu_spoilers">Spoiler slike</string>
   <string name="cache_menu_around">Zakladi v bližini</string>
   <string name="cache_menu_event">Dodaj na koledar</string>
@@ -868,7 +865,6 @@
   <string name="helper_contacts_description">Omogoča vam odpiranje vizitke kontakta (v vašem adresarju) direktno iz zapisa, tako da lahko lažje vprašate prijatelje za pomoč.</string>
   <string name="helper_sendtocgeo_description">Send to c:geo je razširitev za vaš brskalnik <strong>na vašem računalniku</strong>. Ko brskate na geocaching.com, lahko iz spletne strani pošljete zaklad direktno na vašo napravo s klikom na gumb znotraj brskalnika.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Aplikacija Locus vam omogoča prikaz zemljevidov brez povezave in prenos zemljevidov direktno na napravo (samo rasterski zemljevidi). Omogoča tudi beleženje lokacije, uporavljanje s točkami zanimivosti in drugimi uporabnimi funkcionalnostmi.</string>
   <string name="helper_gpsstatus_title">GPS Status</string>
   <string name="helper_gpsstatus_description">Aplikacija GPS Status vam omogoča prikaz radarja in uporabljate jo lahko z aplikacijo c:geo. Omogoča tudi prikaz veliko drugih informacij povezanih z GPS in njihovimi orodji.</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>

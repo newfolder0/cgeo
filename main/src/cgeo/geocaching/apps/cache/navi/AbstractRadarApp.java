@@ -2,12 +2,12 @@ package cgeo.geocaching.apps.cache.navi;
 
 import cgeo.geocaching.Geocache;
 import cgeo.geocaching.Waypoint;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
 
 import android.app.Activity;
 import android.content.Intent;
 
-public abstract class AbstractRadarApp extends AbstractPointNavigationApp {
+abstract class AbstractRadarApp extends AbstractPointNavigationApp {
 
     protected static final String RADAR_EXTRA_LONGITUDE = "longitude";
     protected static final String RADAR_EXTRA_LATITUDE = "latitude";

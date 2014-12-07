@@ -4,7 +4,9 @@ import cgeo.geocaching.connector.gc.GCLogin;
 import cgeo.geocaching.enumerations.CacheSize;
 import cgeo.geocaching.enumerations.CacheType;
 import cgeo.geocaching.enumerations.LogType;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
+
+import org.eclipse.jdt.annotation.NonNull;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -58,6 +60,7 @@ public class GC1ZXX2 extends MockedCache {
         return true;
     }
 
+    @NonNull
     @Override
     public String getOwnerUserId() {
         return "daniel354";
@@ -86,7 +89,7 @@ public class GC1ZXX2 extends MockedCache {
     @Override
     public Date getHiddenDate() {
         try {
-            return GCLogin.parseGcCustomDate("16/10/2009", getDateFormat());
+            return GCLogin.parseGcCustomDate("2009-10-16", getDateFormat());
         } catch (ParseException e) {
             // intentionally left blank
         }

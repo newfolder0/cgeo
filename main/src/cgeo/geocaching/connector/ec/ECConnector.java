@@ -2,7 +2,6 @@ package cgeo.geocaching.connector.ec;
 
 import cgeo.geocaching.CgeoApplication;
 import cgeo.geocaching.Geocache;
-import cgeo.geocaching.ICache;
 import cgeo.geocaching.LogCacheActivity;
 import cgeo.geocaching.R;
 import cgeo.geocaching.SearchResult;
@@ -16,9 +15,9 @@ import cgeo.geocaching.connector.capability.ISearchByViewPort;
 import cgeo.geocaching.connector.gc.MapTokens;
 import cgeo.geocaching.enumerations.LogType;
 import cgeo.geocaching.enumerations.StatusCode;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.Viewport;
 import cgeo.geocaching.loaders.RecaptchaReceiver;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.Viewport;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.settings.SettingsActivity;
 import cgeo.geocaching.utils.CancellableHandler;
@@ -115,7 +114,7 @@ public class ECConnector extends AbstractConnector implements ISearchByGeocode, 
     }
 
     @Override
-    public boolean isOwner(final ICache cache) {
+    public boolean isOwner(final Geocache cache) {
         return false;
     }
 

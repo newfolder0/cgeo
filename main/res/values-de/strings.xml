@@ -74,12 +74,13 @@
   <string name="log_tb_visit">Besucht</string>
   <string name="log_tb_drop">Abgelegt</string>
   <string name="log_tb_changeall">Alle ändern</string>
-  <string name="log_save">Speichern</string>
+  <string name="log_save">Offline speichern</string>
   <string name="log_saving">Log wird gesendet…</string>
   <string name="log_saving_and_uploading">Log und Bild werden gesendet…</string>
   <string name="log_clear">Leeren</string>
   <string name="log_post_not_possible">Lade Log-Seite…</string>
   <string name="log_add">Hinzufügen</string>
+  <string name="log_repeat">Verwende das letzte Log erneut</string>
   <string name="log_no_rating">Keine Bewertung</string>
   <string name="log_stars_1_description">Schlecht</string>
   <string name="log_stars_15_description">Lohnt sich nicht</string>
@@ -126,7 +127,7 @@
   <string name="err_unknown">Unbekannter Fehler</string>
   <string name="err_comm">Unbekannter Kommunikationsfehler</string>
   <string name="err_missing_auth">Benutzername oder Passwort nicht gesetzt.</string>
-  <string name="err_wrong">Falsche Anmeldedaten</string>
+  <string name="err_wrong">Benutzername und/oder Passwort falsch</string>
   <string name="err_maintenance">Geocaching.com wird zur Zeit gewartet, bitte später erneut versuchen. c:geo arbeitet im Offline-Modus.</string>
   <string name="err_license">Die Geocaching.com Nutzungsbedingungen wurden nicht akzeptiert. c:geo kann deshalb keine Koordinaten laden.</string>
   <string name="err_unvalidated_account">Die Logindaten müssen zuerst auf Geocaching.com validiert werden.</string>
@@ -166,7 +167,6 @@
   <string name="err_point_unknown_position">c:geo konnte den aktuellen Standort nicht bestimmen.</string>
   <string name="err_point_no_position_given_title">Info benötigt</string>
   <string name="err_point_no_position_given">Mindestens Längen- und Breitengrad oder Entfernung und Richtung angeben. Auch alle Angaben sind möglich.</string>
-  <string name="err_point_curr_position_unavailable">c:geo hat noch keine aktuelle Koordinaten. Bitte einen Moment warten…</string>
   <string name="err_point_bear_and_dist_title">Hilfe benötigt?</string>
   <string name="err_point_bear_and_dist">Angaben zu Richtung und Entfernung sind notwendig. Richtung: 0 bis 360 Grad relativ zum Norden. Die Entfernung benötigt keine Bezeichnung der Einheiten. </string>
   <string name="err_log_load_data">c:geo konnte die benötigten Daten nicht laden, um den Besuch zu loggen.</string>
@@ -211,6 +211,7 @@
   <string name="loc_net">Netzwerk</string>
   <string name="loc_fused">Kombiniert</string>
   <string name="loc_low_power">Energiesparmodus</string>
+  <string name="loc_home">Heimkoordinaten</string>
   <string name="loc_gps">GPS</string>
   <string name="loc_sat">SAT</string>
   <string name="loc_trying">Lokalisierung</string>
@@ -298,6 +299,7 @@
   <string name="caches_filter_popularity_ratio">Favoriten [%]</string>
   <string name="caches_removing_from_history">Lösche aus Verlauf…</string>
   <string name="caches_clear_offlinelogs">Offline-Logs löschen</string>
+  <string name="caches_clear_offlinelogs_message">Möchtest du die Offline-Logs löschen?</string>
   <string name="caches_clear_offlinelogs_progress">Lösche Offline-Logs</string>
   <string name="list_menu_create">Neue Liste</string>
   <string name="list_menu_drop">Aktuelle Liste löschen</string>
@@ -373,6 +375,8 @@
   <string name="settings_activate_oc_uk">Aktivieren</string>
   <string name="init_oc_uk_description">Autorisiere c:geo auf opencaching.org.uk zuzugreifen um Caches zu suchen und nach deinen Funden zu filtern.</string>
   <string name="init_gcvote">GCvote.com</string>
+  <string name="init_gcvote_password_description">Um einen Cache bewerten zu können, folge der Anleitung auf gcvote.com  und gib das GCVote-Passwort anschließend hier ein.</string>
+  <string name="err_gcvote_send_rating">Fehler beim Senden der Bewertung. Prüfe das GCVote-Passwort in den Einstellungen oder lösche es.</string>
   <string name="init_twitter">Twitter</string>
   <string name="settings_activate_twitter">Aktivieren</string>
   <string name="init_username">Benutzername</string>
@@ -640,7 +644,7 @@
   <string name="cache_menu_streetview">Street View</string>
   <string name="cache_menu_browser">Im Browser öffnen</string>
   <string name="cache_menu_visit">Besuch loggen</string>
-  <string name="cache_menu_visit_offline">Besuch offline loggen</string>
+  <string name="cache_menu_visit_offline">Offline loggen</string>
   <string name="cache_menu_spoilers">Hinweisbild</string>
   <string name="cache_menu_around">Caches im Umkreis</string>
   <string name="cache_menu_event">Zum Kalender hinzufügen</string>
@@ -761,6 +765,7 @@
   <string name="search_clear_history">Verlauf löschen</string>
   <string name="search_history_cleared">Verlauf gelöscht</string>
   <string name="waypoint_coordinate_formats_plain">Schlicht</string>
+  <string name="from_clipboard">Aus der Zwischenablage</string>
   <string name="visit_tweet">Diesen Eintrag auf Twitter veröffentlichen</string>
   <string name="map_map">Karte</string>
   <string name="map_live">Live-Karte</string>
@@ -865,7 +870,7 @@
   <string name="helper_contacts_description">Ermöglicht das direkte Öffnen von Kontakten (aus dem eigenen Adressbuch) von Logeinträgen aus, so dass man Freunde einfacher um Hilfe fragen kann.</string>
   <string name="helper_sendtocgeo_description">Send to c:geo ist eine Browsererweiterung <strong>für Ihren PC</strong>. Beim Durchsuchen von geocaching.com können Sie Caches mit einem Klick im Browser direkt an Ihr Smartphone übermitteln.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Sehr gute App für Online- und Offline-Karten (nur Rasterkarten) mit vielen weiteren Funktionen wie z. B. Trackaufzeichnung, POIs und vieles mehr.</string>
+  <string name="helper_locus_description">Outdoor Navigations-App für dein Handy oder Tablet. Verwende topografische Karten offline, zeichne Tracks von deinen Touren auf, suche Geocaches, benutze Sprachführung und vieles mehr.</string>
   <string name="helper_gpsstatus_title">GPS-Status</string>
   <string name="helper_gpsstatus_description">Das Radar dieser App kann in c:geo verwendet und zusätzlich viele GPS-bezogene Informationen abgerufen werden.</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>
@@ -1168,6 +1173,7 @@
     <item quantity="one">%s Favorit</item>
     <item quantity="other">%s Favoriten</item>
   </plurals>
+  <string name="more_than_percent_favorite_points">&gt; %d%% Favoriten</string>
   <string name="cgeo_shortcut">c:geo Shortcut</string>
   <string name="create_shortcut">Shortcut erstellen</string>
   <string name="send">Senden</string>

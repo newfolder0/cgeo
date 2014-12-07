@@ -2,8 +2,8 @@ package cgeo.geocaching;
 
 import cgeo.geocaching.activity.Progress;
 import cgeo.geocaching.apps.cache.navi.NavigationAppFactory;
-import cgeo.geocaching.geopoint.Geopoint;
 import cgeo.geocaching.list.StoredList;
+import cgeo.geocaching.location.Geopoint;
 import cgeo.geocaching.network.Network;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.ui.CacheDetailsCreator;
@@ -160,7 +160,7 @@ public class CachePopupFragment extends AbstractDialogFragment {
                 return;
             }
 
-            if (!Network.isNetworkConnected(getActivity())) {
+            if (!Network.isNetworkConnected()) {
                 showToast(getString(R.string.err_server));
                 return;
             }
@@ -181,7 +181,7 @@ public class CachePopupFragment extends AbstractDialogFragment {
 
             final DropCacheHandler dropCacheHandler = new DropCacheHandler();
             progress.show(getActivity(), res.getString(R.string.cache_dialog_offline_drop_title), res.getString(R.string.cache_dialog_offline_drop_message), true, null);
-            cache.drop(dropCacheHandler, Schedulers.io());
+            cache.drop(dropCacheHandler);
         }
     }
 

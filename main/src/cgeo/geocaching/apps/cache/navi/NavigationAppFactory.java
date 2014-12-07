@@ -11,7 +11,7 @@ import cgeo.geocaching.apps.cache.WhereYouGoApp;
 import cgeo.geocaching.apps.cache.navi.GoogleNavigationApp.GoogleNavigationBikeApp;
 import cgeo.geocaching.apps.cache.navi.GoogleNavigationApp.GoogleNavigationDrivingApp;
 import cgeo.geocaching.apps.cache.navi.GoogleNavigationApp.GoogleNavigationWalkingApp;
-import cgeo.geocaching.geopoint.Geopoint;
+import cgeo.geocaching.location.Geopoint;
 import cgeo.geocaching.settings.Settings;
 
 import org.eclipse.jdt.annotation.Nullable;
@@ -195,7 +195,7 @@ public final class NavigationAppFactory extends AbstractAppFactory {
      *
      * @return
      */
-    public static List<NavigationAppsEnum> getInstalledNavigationApps() {
+    static List<NavigationAppsEnum> getInstalledNavigationApps() {
         final List<NavigationAppsEnum> installedNavigationApps = new ArrayList<>();
         for (final NavigationAppsEnum appEnum : NavigationAppsEnum.values()) {
             if (appEnum.app.isInstalled()) {
@@ -208,7 +208,7 @@ public final class NavigationAppFactory extends AbstractAppFactory {
     /**
      * @return all navigation apps, which are installed and activated in the settings
      */
-    public static List<NavigationAppsEnum> getActiveNavigationApps() {
+    static List<NavigationAppsEnum> getActiveNavigationApps() {
         final List<NavigationAppsEnum> activeApps = new ArrayList<>();
         for (final NavigationAppsEnum appEnum : getInstalledNavigationApps()) {
             if (Settings.isUseNavigationApp(appEnum)) {

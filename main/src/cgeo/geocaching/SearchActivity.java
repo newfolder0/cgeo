@@ -9,10 +9,10 @@ import cgeo.geocaching.connector.ConnectorFactory;
 import cgeo.geocaching.connector.IConnector;
 import cgeo.geocaching.connector.capability.ISearchByGeocode;
 import cgeo.geocaching.connector.trackable.TrackableConnector;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.GeopointFormatter;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.GeopointFormatter;
 import cgeo.geocaching.search.AutoCompleteAdapter;
-import cgeo.geocaching.sensors.IGeoData;
+import cgeo.geocaching.sensors.GeoData;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.ui.dialog.CoordinatesInputDialog;
 import cgeo.geocaching.ui.dialog.Dialogs;
@@ -62,6 +62,8 @@ public class SearchActivity extends AbstractActionBarActivity implements Coordin
     @InjectView(R.id.trackable) protected AutoCompleteTextView trackableEditText;
     @InjectView(R.id.display_trackable) protected Button buttonSearchTrackable;
 
+    private static final String GOOGLE_NOW_SEARCH_ACTION = "com.google.android.gms.actions.SEARCH_ACTION";
+
     @Override
     public final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,8 +83,8 @@ public class SearchActivity extends AbstractActionBarActivity implements Coordin
             return;
         }
 
-        // search query
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+        // search query, from search toolbar or from google now
+        if (Intent.ACTION_SEARCH.equals(intent.getAction()) || GOOGLE_NOW_SEARCH_ACTION.equals(intent.getAction())) {
             hideKeyboard();
             final String query = intent.getStringExtra(SearchManager.QUERY);
             final boolean keywordSearch = intent.getBooleanExtra(Intents.EXTRA_KEYWORD_SEARCH, true);
@@ -124,7 +126,7 @@ public class SearchActivity extends AbstractActionBarActivity implements Coordin
     /**
      * Performs a search for query either as geocode, trackable code or keyword
      *
-     * @param query
+     * @param nonTrimmedQuery
      *            String to search for
      * @param keywordSearch
      *            Set to true if keyword search should be performed if query isn't GC or TB
@@ -307,11 +309,9 @@ public class SearchActivity extends AbstractActionBarActivity implements Coordin
         final String lonText = StringUtils.trim(buttonLongitude.getText().toString());
 
         if (StringUtils.isEmpty(latText) || StringUtils.isEmpty(lonText)) {
-            final IGeoData geo = app.currentGeo();
-            if (geo.getCoords() != null) {
-                buttonLatitude.setText(geo.getCoords().format(GeopointFormatter.Format.LAT_DECMINUTE));
-                buttonLongitude.setText(geo.getCoords().format(GeopointFormatter.Format.LON_DECMINUTE));
-            }
+            final GeoData geo = app.currentGeo();
+            buttonLatitude.setText(geo.getCoords().format(GeopointFormatter.Format.LAT_DECMINUTE));
+            buttonLongitude.setText(geo.getCoords().format(GeopointFormatter.Format.LON_DECMINUTE));
         } else {
             try {
                 CacheListActivity.startActivityCoordinates(this, new Geopoint(latText, lonText));

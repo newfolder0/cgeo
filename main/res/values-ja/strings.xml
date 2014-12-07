@@ -71,7 +71,6 @@
   <string name="log_tb_visit">訪れた</string>
   <string name="log_tb_drop">ここに置く</string>
   <string name="log_tb_changeall">Change All</string>
-  <string name="log_save">保存</string>
   <string name="log_saving">ログを送信中…</string>
   <string name="log_saving_and_uploading">ログと画像を送信中…</string>
   <string name="log_clear">消去</string>
@@ -162,7 +161,6 @@
   <string name="err_point_unknown_position">現在地を認識できません。</string>
   <string name="err_point_no_position_given_title">必要な情報</string>
   <string name="err_point_no_position_given">少なくとも経度、緯度、または距離と方位を入力してください。全てを入力することもできます。</string>
-  <string name="err_point_curr_position_unavailable">現在地の座標が分かりません。もう少しお待ちください…</string>
   <string name="err_point_bear_and_dist_title">ヘルプが必要?</string>
   <string name="err_point_bear_and_dist">方位と距離を入力してください。方位は北を基準として時計回りに0～360度で表し単位は付けないでください。</string>
   <string name="err_log_load_data">ログを書くのに必要なデータをロードすることができません。</string>
@@ -561,7 +559,6 @@
   <string name="cache_menu_streetview">Googleストリートビュー</string>
   <string name="cache_menu_browser">ブラウザで開く</string>
   <string name="cache_menu_visit">ログを書く</string>
-  <string name="cache_menu_visit_offline">ログを書く(オフライン)</string>
   <string name="cache_menu_spoilers">スポイラー画像</string>
   <string name="cache_menu_around">近くのキャッシュ</string>
   <string name="cache_menu_event">カレンダーに登録</string>
@@ -777,7 +774,6 @@
   <string name="helper_contacts_title">c:geo - 連絡先アドオン</string>
   <string name="helper_sendtocgeo_description">Send to c:geoは<strong>PC用</strong>ブラウザの拡張機能です。PCのブラウザで表示してるキャッシュ情報をアンドロイド端末に直接送ることができます。</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">シンプルで役に立つ地図アプリ。オフライン用に地図を直接ダウンロード(画像データのみ)することができます。軌跡(GPSログ)を記録したり、POIを扱ったり、その他もたくさん便利な機能があります。</string>
   <string name="helper_gpsstatus_title">GPS Status</string>
   <string name="helper_gpsstatus_description">c:geoでこのアプリのレーダーを利用することができます。その他、GPSに関するたくさんの情報が得られます。</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>

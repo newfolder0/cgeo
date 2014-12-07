@@ -1,5 +1,6 @@
 package cgeo.geocaching.network;
 
+import cgeo.geocaching.CgeoApplication;
 import cgeo.geocaching.files.LocalStorage;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.utils.JsonUtils;
@@ -56,13 +57,13 @@ public abstract class Network {
 
     private static final Pattern PATTERN_PASSWORD = Pattern.compile("(?<=[\\?&])[Pp]ass(w(or)?d)?=[^&#$]+");
 
-    private final static HttpParams clientParams = new BasicHttpParams();
+    private final static HttpParams CLIENT_PARAMS = new BasicHttpParams();
 
     static {
-        clientParams.setParameter(CoreProtocolPNames.HTTP_CONTENT_CHARSET, CharEncoding.UTF_8);
-        clientParams.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 30000);
-        clientParams.setParameter(CoreConnectionPNames.SO_TIMEOUT, 90000);
-        clientParams.setParameter(ClientPNames.HANDLE_REDIRECTS,  true);
+        CLIENT_PARAMS.setParameter(CoreProtocolPNames.HTTP_CONTENT_CHARSET, CharEncoding.UTF_8);
+        CLIENT_PARAMS.setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 30000);
+        CLIENT_PARAMS.setParameter(CoreConnectionPNames.SO_TIMEOUT, 90000);
+        CLIENT_PARAMS.setParameter(ClientPNames.HANDLE_REDIRECTS, true);
     }
 
     private static String hidePassword(final String message) {
@@ -72,7 +73,7 @@ public abstract class Network {
     private static HttpClient getHttpClient() {
         final DefaultHttpClient client = new DefaultHttpClient();
         client.setCookieStore(Cookies.cookieStore);
-        client.setParams(clientParams);
+        client.setParams(CLIENT_PARAMS);
         client.setRedirectStrategy(new LaxRedirectStrategy());
         return new DecompressingHttpClient(client);
     }
@@ -94,7 +95,7 @@ public abstract class Network {
      *
      * @param uri the URI to request
      * @param params the parameters to add to the POST request
-     * @params headers the headers to add to the request
+     * @param headers the headers to add to the request
      * @return the HTTP response, or null in case of an encoding error params
      */
     @Nullable
@@ -111,12 +112,12 @@ public abstract class Network {
      */
     @Nullable
     public static HttpResponse postJsonRequest(final String uri, final ObjectNode json) {
-        HttpPost request = new HttpPost(uri);
+        final HttpPost request = new HttpPost(uri);
         request.addHeader("Content-Type", "application/json; charset=utf-8");
         if (json != null) {
             try {
                 request.setEntity(new StringEntity(json.toString(), CharEncoding.UTF_8));
-            } catch (UnsupportedEncodingException e) {
+            } catch (final UnsupportedEncodingException e) {
                 Log.e("postJsonRequest:JSON Entity: UnsupportedEncodingException", e);
                 return null;
             }
@@ -173,7 +174,7 @@ public abstract class Network {
     @Nullable
     private static HttpResponse request(final String method, final String uri,
                                         @Nullable final Parameters params, @Nullable final Parameters headers, @Nullable final File cacheFile) {
-        HttpRequestBase request;
+        final HttpRequestBase request;
         if (method.equals("GET")) {
             final String fullUri = params == null ? uri : Uri.parse(uri).buildUpon().encodedQuery(params.toString()).build().toString();
             request = new HttpGet(fullUri);
@@ -224,6 +225,10 @@ public abstract class Network {
      */
     @Nullable
     private static HttpResponse doLogRequest(final HttpRequestBase request) {
+        if (!isNetworkConnected()) {
+            return null;
+        }
+
         final String reqLogStr = request.getMethod() + " " + hidePassword(request.getURI().toString());
         Log.d(reqLogStr);
 
@@ -231,7 +236,7 @@ public abstract class Network {
         final long before = System.currentTimeMillis();
         try {
             final HttpResponse response = client.execute(request);
-            int status = response.getStatusLine().getStatusCode();
+            final int status = response.getStatusLine().getStatusCode();
             if (status == 200) {
                 Log.d(status + formatTimeSpan(before) + reqLogStr);
             } else {
@@ -372,7 +377,7 @@ public abstract class Network {
         if (!isSuccess(response)) {
             return null;
         }
-        assert(response != null);
+        assert response != null;
         final HttpEntity entity = response.getEntity();
         if (entity == null) {
             return null;
@@ -386,11 +391,11 @@ public abstract class Network {
     }
 
     @Nullable
-    private static String getResponseDataNoError(final HttpResponse response, boolean replaceWhitespace) {
+    private static String getResponseDataNoError(final HttpResponse response, final boolean replaceWhitespace) {
         try {
-            String data = EntityUtils.toString(response.getEntity(), CharEncoding.UTF_8);
+            final String data = EntityUtils.toString(response.getEntity(), CharEncoding.UTF_8);
             return replaceWhitespace ? TextUtils.replaceWhitespace(data) : data;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.e("getResponseData", e);
             return null;
         }
@@ -423,7 +428,7 @@ public abstract class Network {
      * @return the body if the response comes from a successful HTTP request, <code>null</code> otherwise
      */
     @Nullable
-    public static String getResponseData(@Nullable final HttpResponse response, boolean replaceWhitespace) {
+    public static String getResponseData(@Nullable final HttpResponse response, final boolean replaceWhitespace) {
         if (!isSuccess(response)) {
             return null;
         }
@@ -432,7 +437,7 @@ public abstract class Network {
     }
 
     @Nullable
-    public static String rfc3986URLEncode(String text) {
+    public static String rfc3986URLEncode(final String text) {
         final String encoded = encode(text);
         return encoded != null ? StringUtils.replace(encoded.replace("+", "%20"), "%7E", "~") : null;
     }
@@ -441,7 +446,7 @@ public abstract class Network {
     public static String decode(final String text) {
         try {
             return URLDecoder.decode(text, CharEncoding.UTF_8);
-        } catch (UnsupportedEncodingException e) {
+        } catch (final UnsupportedEncodingException e) {
             Log.e("Network.decode", e);
         }
         return null;
@@ -451,25 +456,26 @@ public abstract class Network {
     public static String encode(final String text) {
         try {
             return URLEncoder.encode(text, CharEncoding.UTF_8);
-        } catch (UnsupportedEncodingException e) {
+        } catch (final UnsupportedEncodingException e) {
             Log.e("Network.encode", e);
         }
         return null;
     }
 
+    private static ConnectivityManager connectivityManager = null;
+
     /**
      * Checks if the device has network connection.
      *
-     * @param context
-     *            context of the application, cannot be null
-     *
      * @return <code>true</code> if the device is connected to the network.
      */
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = conMan.getActiveNetworkInfo();
-
-        return activeNetwork != null && activeNetwork.isConnected();
+    public static boolean isNetworkConnected() {
+        if (connectivityManager == null) {
+            // Concurrent assignment would not hurt
+            connectivityManager = (ConnectivityManager) CgeoApplication.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        }
+        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

@@ -16,13 +16,13 @@ import cgeo.geocaching.connector.gc.GCLogin;
 import cgeo.geocaching.connector.gc.MapTokens;
 import cgeo.geocaching.connector.gc.Tile;
 import cgeo.geocaching.enumerations.CacheType;
-import cgeo.geocaching.enumerations.LiveMapStrategy.Strategy;
 import cgeo.geocaching.enumerations.LoadFlags;
 import cgeo.geocaching.enumerations.LoadFlags.RemoveFlag;
 import cgeo.geocaching.enumerations.WaypointType;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.Viewport;
 import cgeo.geocaching.list.StoredList;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.Viewport;
+import cgeo.geocaching.maps.LiveMapStrategy.Strategy;
 import cgeo.geocaching.maps.interfaces.CachesOverlayItemImpl;
 import cgeo.geocaching.maps.interfaces.GeoPointImpl;
 import cgeo.geocaching.maps.interfaces.MapActivityImpl;
@@ -32,8 +32,8 @@ import cgeo.geocaching.maps.interfaces.MapProvider;
 import cgeo.geocaching.maps.interfaces.MapSource;
 import cgeo.geocaching.maps.interfaces.MapViewImpl;
 import cgeo.geocaching.maps.interfaces.OnMapDragListener;
+import cgeo.geocaching.sensors.GeoData;
 import cgeo.geocaching.sensors.GeoDirHandler;
-import cgeo.geocaching.sensors.IGeoData;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.ui.dialog.LiveMapInfoDialogBuilder;
 import cgeo.geocaching.utils.AngleUtils;
@@ -61,11 +61,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -134,12 +136,12 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
     private CgeoApplication app;
     private MapItemFactory mapItemFactory;
     private String mapTitle;
-    private LeastRecentlyUsedSet<Geocache> caches;
+    final private LeastRecentlyUsedSet<Geocache> caches = new LeastRecentlyUsedSet<>(MAX_CACHES + DataStore.getAllCachesCount());
     private MapViewImpl mapView;
     private CachesOverlay overlayCaches;
     private PositionAndScaleOverlay overlayPositionAndScale;
 
-    final private GeoDirHandler geoDirUpdate;
+    final private GeoDirHandler geoDirUpdate = new UpdateLoc(this);
     private SearchResult searchIntent = null;
     private String geocodeIntent = null;
     private Geopoint coordsIntent = null;
@@ -181,6 +183,8 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
     private boolean centered = false; // if map is already centered
     private boolean alreadyCentered = false; // -""- for setting my location
     private static final Set<String> dirtyCaches = new HashSet<>();
+    // flag for honeycomb special popup menu handling
+    private boolean honeycombMenu = false;
 
     /**
      * if live map is enabled, this is the minimum zoom level, independent of the stored setting
@@ -356,7 +360,6 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
 
     public CGeoMap(final MapActivityImpl activity) {
         super(activity);
-        geoDirUpdate = new UpdateLoc(this);
     }
 
     protected void countVisibleCaches() {
@@ -380,9 +383,6 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         res = this.getResources();
         activity = this.getActivity();
         app = (CgeoApplication) activity.getApplication();
-
-        final int countBubbleCnt = DataStore.getAllCachesCount();
-        caches = new LeastRecentlyUsedSet<>(MAX_CACHES + countBubbleCnt);
 
         final MapProvider mapProvider = Settings.getMapProvider();
         mapItemFactory = mapProvider.getMapItemFactory();
@@ -479,6 +479,18 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         }
         prepareFilterBar();
 
+        // Check for Honeycomb fake overflow button and attach popup
+        final View overflowActionBar = ButterKnife.findById(activity, R.id.overflowActionBar);
+        if (overflowActionBar != null) {
+            honeycombMenu = true;
+            overflowActionBar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    showPopupHoneycomb(v);
+                }
+            });
+        }
+
         if (!app.isLiveMapHintShownInThisSession() && Settings.getLiveMapHintShowCount() <= 3) {
             LiveMapInfoDialogBuilder.create(activity).show();
         }
@@ -521,18 +533,28 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         resumeSubscription = Subscriptions.from(geoDirUpdate.start(GeoDirHandler.UPDATE_GEODIR), startTimer());
 
         if (!CollectionUtils.isEmpty(dirtyCaches)) {
-            for (final String geocode : dirtyCaches) {
-                final Geocache cache = DataStore.loadCache(geocode, LoadFlags.LOAD_WAYPOINTS);
-                if (cache != null) {
-                    // new collection type needs to remove first
-                    caches.remove(cache);
-                    // re-add to update the freshness
-                    caches.add(cache);
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                public Void doInBackground(final Void... params) {
+                    for (final String geocode : dirtyCaches) {
+                        final Geocache cache = DataStore.loadCache(geocode, LoadFlags.LOAD_WAYPOINTS);
+                        if (cache != null) {
+                            // new collection type needs to remove first
+                            caches.remove(cache);
+                            // re-add to update the freshness
+                            caches.add(cache);
+                        }
+                    }
+                    return null;
                 }
-            }
-            dirtyCaches.clear();
-            // Update display
-            displayExecutor.execute(new DisplayRunnable(this));
+
+                @Override
+                public void onPostExecute(final Void result) {
+                    dirtyCaches.clear();
+                    // Update display
+                    displayExecutor.execute(new DisplayRunnable(CGeoMap.this));
+                }
+            }.execute();
         }
     }
 
@@ -556,10 +578,37 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    private void showPopupHoneycomb(final View view) {
+        // Inflate the core menu ourselves
+        final android.widget.PopupMenu popupMenu = new android.widget.PopupMenu(getActivity(), view);
+        final MenuInflater inflater = new MenuInflater(getActivity());
+        inflater.inflate(R.menu.map_activity, popupMenu.getMenu());
+
+        // continue processing menu items as usual
+        onCreateOptionsMenu(popupMenu.getMenu());
+
+        onPrepareOptionsMenu(popupMenu.getMenu());
+
+        popupMenu.setOnMenuItemClickListener(
+                new android.widget.PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(final MenuItem item) {
+                        return onOptionsItemSelected(item);
+                    }
+                }
+                );
+        // display menu
+        popupMenu.show();
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         // menu inflation happens in Google/Mapsforge specific classes
-        super.onCreateOptionsMenu(menu);
+        // skip it for honeycomb - handled specially in @see showPopupHoneycomb
+        if (!honeycombMenu) {
+            super.onCreateOptionsMenu(menu);
+        }
 
         MapProviderFactory.addMapviewMenuItems(menu);
 
@@ -567,7 +616,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         subMenuStrategy.setHeaderTitle(res.getString(R.string.map_strategy_title));
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             /* if we have an Actionbar find the my position toggle */
             final MenuItem item = menu.findItem(R.id.menu_toggle_mypos);
             myLocSwitch = new CheckBox(activity);
@@ -889,7 +938,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
     }
 
     // Set center of map to my location if appropriate.
-    private void myLocationInMiddle(final IGeoData geo) {
+    private void myLocationInMiddle(final GeoData geo) {
         if (followMyLocation) {
             centerMap(geo.getCoords());
         }
@@ -906,7 +955,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         // minimum change of location in fraction of map width/height (whatever is smaller) for position overlay update
         private static final float MIN_LOCATION_DELTA = 0.01f;
 
-        Location currentLocation = CgeoApplication.getInstance().currentGeo().getLocation();
+        Location currentLocation = CgeoApplication.getInstance().currentGeo();
         float currentHeading;
 
         private long timeLastPositionOverlayCalculation = 0;
@@ -920,8 +969,8 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
         }
 
         @Override
-        public void updateGeoDir(final IGeoData geo, final float dir) {
-            currentLocation = geo.getLocation();
+        public void updateGeoDir(final GeoData geo, final float dir) {
+            currentLocation = geo;
             currentHeading = AngleUtils.getDirectionNow(dir);
             repaintPositionOverlay();
         }
@@ -995,7 +1044,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
     }
 
     /**
-     * Starts the {@link LoadTimer}.
+     * Starts the load timer.
      */
 
     private Subscription startTimer() {
@@ -1074,7 +1123,7 @@ public class CGeoMap extends AbstractMap implements ViewFactory {
 
     /**
      * Worker thread that loads caches and waypoints from the database and then spawns the {@link DownloadRunnable}.
-     * started by {@link LoadTimer}
+     * started by the load timer.
      */
 
     private static class LoadRunnable extends DoRunnable {

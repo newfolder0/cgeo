@@ -74,12 +74,13 @@
   <string name="log_tb_visit">Vizitat</string>
   <string name="log_tb_drop">Lăsat</string>
   <string name="log_tb_changeall">Schimbă toate</string>
-  <string name="log_save">Salvează</string>
+  <string name="log_save">Salvează local</string>
   <string name="log_saving">Trimitere jurnal…</string>
   <string name="log_saving_and_uploading">Trimitre jurnal şi încarcare poze…</string>
   <string name="log_clear">Şterge</string>
   <string name="log_post_not_possible">Încărcare pagină însemnări…</string>
   <string name="log_add">Adaugă</string>
+  <string name="log_repeat">Repetă ultima însemnare</string>
   <string name="log_no_rating">Fără voturi</string>
   <string name="log_stars_1_description">Foarte slabă</string>
   <string name="log_stars_15_description">Slabă</string>
@@ -166,7 +167,6 @@
   <string name="err_point_unknown_position">c:geo nu poate determina unde te afli.</string>
   <string name="err_point_no_position_given_title">Informaţii necesare</string>
   <string name="err_point_no_position_given">Introdu cel puţin latitudine şi longitudine sau distanţă şi azimut. Se pot completa şi toate cele patru câmpuri.</string>
-  <string name="err_point_curr_position_unavailable">c:geo incă tot nu a obţinut coordonatele poziţiei curente. Te rog, mai aşteaptă puţin…</string>
   <string name="err_point_bear_and_dist_title">Ai nevoie de ajutor?</string>
   <string name="err_point_bear_and_dist">Completează şi azimutul şi distanţa. Azimutul este unghiul de la 0 la 360 faţă de nord. Distanţa nu necesită unităţi.</string>
   <string name="err_log_load_data">c:geo nu poate încărca informaţiile necesare pentru a posta o însemnare.</string>
@@ -211,6 +211,7 @@
   <string name="loc_net">Reţea</string>
   <string name="loc_fused">Combinat</string>
   <string name="loc_low_power">Mod economic</string>
+  <string name="loc_home">Coordonatele de acasă</string>
   <string name="loc_gps">GPS</string>
   <string name="loc_sat">Sat</string>
   <string name="loc_trying">Încerc să determin poziţia</string>
@@ -299,6 +300,7 @@
   <string name="caches_filter_popularity_ratio">Favorite [%]</string>
   <string name="caches_removing_from_history">Şterge din istoric…</string>
   <string name="caches_clear_offlinelogs">Şterge însemnări stocate local</string>
+  <string name="caches_clear_offlinelogs_message">Vrei să ştergi însemnările stocate local?</string>
   <string name="caches_clear_offlinelogs_progress">Ştergere însemnări stocate local</string>
   <string name="list_menu_create">Crează listă nouă</string>
   <string name="list_menu_drop">Şterge lista curentă</string>
@@ -374,6 +376,8 @@
   <string name="settings_activate_oc_uk">Activează</string>
   <string name="init_oc_uk_description">Autorizează c:geo cu opencaching.org.uk pentru a putea căuta geocutii şi a putea accesa/filtra pe cele găsite de tine.</string>
   <string name="init_gcvote">GCvote.com</string>
+  <string name="init_gcvote_password_description">Pentru a putea evalua o geocutie, trebuie să urmezi instrucţiunile de la GCVote.com şi să introduci aici parola GCVote.</string>
+  <string name="err_gcvote_send_rating">Eroare la trimiterea evaluării, verifică-ţi parola GCVote din configuraţie sau şterge această parolă.</string>
   <string name="init_twitter">Twitter</string>
   <string name="settings_activate_twitter">Activează</string>
   <string name="init_username">Utilizator</string>
@@ -635,7 +639,7 @@
   <string name="cache_menu_streetview">Vedere stradală</string>
   <string name="cache_menu_browser">Afişează în browser</string>
   <string name="cache_menu_visit">Jurnal</string>
-  <string name="cache_menu_visit_offline">Jurnal salvat</string>
+  <string name="cache_menu_visit_offline">Însemnare locală cu un singur clic</string>
   <string name="cache_menu_spoilers">Imagini (indicii?)</string>
   <string name="cache_menu_around">Cutii din împrejurimi</string>
   <string name="cache_menu_event">Adaugă la calendar</string>
@@ -756,6 +760,7 @@
   <string name="search_clear_history">Şterge istoric</string>
   <string name="search_history_cleared">Istoric şters</string>
   <string name="waypoint_coordinate_formats_plain">Simplu</string>
+  <string name="from_clipboard">Din memoria temporară</string>
   <string name="visit_tweet">Publică pe Twitter</string>
   <string name="map_map">Hartă</string>
   <string name="map_live">Hartă</string>
@@ -860,7 +865,7 @@
   <string name="helper_contacts_description">Permite să afişezi contacte (din agenda de contacte) direct din formularul pentru însemnări, astfel încţt să ăti poţi întreba mai uşor prietenii.</string>
   <string name="helper_sendtocgeo_description">Send to c:geo este o extensie pentru browser-ul <strong>de pe PC</strong>. Când vizitezi geocaching.com, poţi trimite geocutii direct către dispozitivul tău apăsând un simplu buton.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Aplicaţie simplă care afişează hărţi de pe internet şi îţi permite să le salvezi local (doar caimagini cu hărţi). Mai ştie să înregistreze trasee, gestiune de puncte de interes şi alte funcţii utile.</string>
+  <string name="helper_locus_description">Aplicaţie de navigare pentru telefon sau tabletă. Vezi hărţi salvate, urmăreşte-ţi traseul, caută geocutii, foloseşte ghidare vocală şi multe altele.</string>
   <string name="helper_gpsstatus_title">Stare GPS</string>
   <string name="helper_gpsstatus_description">Poţi folosi ecranul Radar din această aplicaţie împreună cu c:geo. Oferă şi multe alte informaţii legate de GPS.</string>
   <string name="helper_bluetoothgps_title">GPS prin Bluetooth</string>
@@ -1138,7 +1143,8 @@
   <string name="tts_one_foot">un picior</string>
   <string name="tts_one_oclock">ora unu</string>
   <string name="tts_oclock">ora %s</string>
-  <string name="clipboard_copy_ok">Copiat</string>
+  <string name="clipboard_copy_ok">Copiat în memoria temporară</string>
+  <string name="more_than_percent_favorite_points">&gt; %d%% favorite</string>
   <string name="cgeo_shortcut">legătură la c:geo</string>
   <string name="create_shortcut">Crează scurtătură</string>
   <string name="send">Trimite</string>

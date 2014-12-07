@@ -74,12 +74,13 @@
   <string name="log_tb_visit">Odwiedzony</string>
   <string name="log_tb_drop">Odłożony</string>
   <string name="log_tb_changeall">Zmień wszystko</string>
-  <string name="log_save">Zapisz</string>
+  <string name="log_save">Zapisz offline</string>
   <string name="log_saving">Zapisuję w dzienniku…</string>
   <string name="log_saving_and_uploading">Zapisuję w dzienniku i wysyłam zdjęcie…</string>
   <string name="log_clear">Wyczyść</string>
   <string name="log_post_not_possible">Ładuję dziennik…</string>
   <string name="log_add">Dodaj</string>
+  <string name="log_repeat">Powtórz ostatni wpis</string>
   <string name="log_no_rating">Bez oceny</string>
   <string name="log_stars_1_description">Słaba</string>
   <string name="log_stars_15_description">Raczej słaba</string>
@@ -166,7 +167,6 @@
   <string name="err_point_unknown_position">c:geo nie może określić Twojej lokalizacji.</string>
   <string name="err_point_no_position_given_title">Informacje wymagane</string>
   <string name="err_point_no_position_given">Wypełnij co najmniej szerokość i długość geograficzną lub odległość i namiar. Możesz również wypełnić wszystkie cztery pola.</string>
-  <string name="err_point_curr_position_unavailable">c:geo nadal nie zna aktualnych współrzędnych. Proszę chwilę poczekać…</string>
   <string name="err_point_bear_and_dist_title">Potrzebujesz pomocy?</string>
   <string name="err_point_bear_and_dist">Wypełnij zarówno namiar i odległość. Biorąc kąt od 0 do 360 stopni w stosunku do północy. Odległość z lub bez jednostki.</string>
   <string name="err_log_load_data">c:geo nie może załadować danych wymaganych do wpisania wizyty.</string>
@@ -211,6 +211,7 @@
   <string name="loc_net">Sieć</string>
   <string name="loc_fused">Połączona</string>
   <string name="loc_low_power">Niski pobór energii</string>
+  <string name="loc_home">Koordynaty domowe</string>
   <string name="loc_gps">GPS</string>
   <string name="loc_sat">Sat</string>
   <string name="loc_trying">Próba lokalizacji</string>
@@ -299,6 +300,7 @@
   <string name="caches_filter_popularity_ratio">Ulubione [%]</string>
   <string name="caches_removing_from_history">Usuwam z Historii…</string>
   <string name="caches_clear_offlinelogs">Usuń wpisy offline</string>
+  <string name="caches_clear_offlinelogs_message">Czy chcesz wyczyścić wpisy offline?</string>
   <string name="caches_clear_offlinelogs_progress">Usuwanie wpisów offline</string>
   <string name="list_menu_create">Utwórz nową listę</string>
   <string name="list_menu_drop">Usuń aktualną listę</string>
@@ -371,6 +373,8 @@
   <string name="settings_activate_oc_uk">Aktywuj</string>
   <string name="init_oc_uk_description">Autoryzuj c:geo z opencaching.org.uk aby wyszukiwać skrzynki i mieć dostęp/filtrować znalezione skrzynki.</string>
   <string name="init_gcvote">GCvote.com</string>
+  <string name="init_gcvote_password_description">Aby móc oceniać skrzynki, należy postępować zgodnie z instrukcjami zawartymi na  GCVote.com i podać swoje hasło do serwisu tutaj.</string>
+  <string name="err_gcvote_send_rating">Błąd podczas wysyłania oceny, sprawdź swoje hasło do GCVote w ustawieniach albo wyczyść je.</string>
   <string name="init_twitter">Twitter</string>
   <string name="settings_activate_twitter">Aktywuj</string>
   <string name="init_username">Nazwa użytkownika</string>
@@ -761,6 +765,7 @@
   <string name="search_clear_history">Usuń historię</string>
   <string name="search_history_cleared">Historia usunięta</string>
   <string name="waypoint_coordinate_formats_plain">zwykłe</string>
+  <string name="from_clipboard">Ze schowka</string>
   <string name="visit_tweet">Wyślij informację do Twitter</string>
   <string name="map_map">Mapa</string>
   <string name="map_live">Mapa online</string>
@@ -865,7 +870,7 @@
   <string name="helper_contacts_description">Umożliwia Tobie otwarcie kontaktu (z Twojej książki adresowej) bezpośrednio z wpisu do dziennika, więc możesz łatwiej poprosić przyjaciół o pomoc.</string>
   <string name="helper_sendtocgeo_description">Wyślij do c:geo jest rozszerzeniem do przeglądarki <strong>na komputer</strong>. Podczas przeglądania Geocaching.com pozwala na wysłanie skrzynek bezpośrednio do telefonu, za pomocą jednego przycisku w przeglądarce.</string>
   <string name="helper_locus_title">Locus</string>
-  <string name="helper_locus_description">Bardzo dobra aplikacja do oglądania map online, która pozwala na pobieranie ich bezpośrednio do trybu offline (tylko mapy rastrowe). Pozwala także na zapisywanie ścieżek, obsługę POI oraz ma wiele innych przydatnych funkcji.</string>
+  <string name="helper_locus_description">Program do nawigacji w terenie dla Twojego telefonu lub tabletu. Przeglądaj mapy topograficzne offiline, śledź swoją trasę, poluj na skrzynki geocache, używaj nawigacji głosowej i wiele więcej.</string>
   <string name="helper_gpsstatus_title">GPS Status</string>
   <string name="helper_gpsstatus_description">Można wywołać radar bezpośrednio z aplikacji c:geo. Oferuje on również wiele informacji związanych z GPS.</string>
   <string name="helper_bluetoothgps_title">Bluetooth GPS</string>
@@ -1174,6 +1179,7 @@
     <item quantity="few">%s ulubione</item>
     <item quantity="other">%s ulubionych</item>
   </plurals>
+  <string name="more_than_percent_favorite_points">&gt; %d%% ulubionych</string>
   <string name="cgeo_shortcut">skrót do c:geo</string>
   <string name="create_shortcut">Utwórz skrót</string>
   <string name="send">Wyślij</string>

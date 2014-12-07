@@ -29,7 +29,7 @@ public class OrientationProvider extends LooperCallbacks<Float> implements Senso
 
     @Override
     public void onSensorChanged(final SensorEvent event) {
-            subscriber.onNext(event.values[0]);
+            subject.onNext(event.values[0]);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class OrientationProvider extends LooperCallbacks<Float> implements Senso
             Log.d("OrientationProvider: starting the orientation provider");
             sensorManager.registerListener(this, orientationSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
-            subscriber.onError(new RuntimeException("orientation sensor is absent on this device"));
+            subject.onError(new RuntimeException("orientation sensor is absent on this device"));
         }
     }
 
@@ -61,7 +61,7 @@ public class OrientationProvider extends LooperCallbacks<Float> implements Senso
     }
 
     public static Observable<Float> create(final Context context) {
-        return Observable.create(new OrientationProvider(context));
+        return Observable.create(new OrientationProvider(context)).onBackpressureDrop();
     }
 
 }

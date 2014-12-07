@@ -3,7 +3,6 @@ package cgeo.geocaching.connector.gc;
 import cgeo.geocaching.CgeoApplication;
 import cgeo.geocaching.DataStore;
 import cgeo.geocaching.Geocache;
-import cgeo.geocaching.ICache;
 import cgeo.geocaching.LogCacheActivity;
 import cgeo.geocaching.R;
 import cgeo.geocaching.SearchResult;
@@ -21,9 +20,9 @@ import cgeo.geocaching.connector.capability.ISearchByKeyword;
 import cgeo.geocaching.connector.capability.ISearchByOwner;
 import cgeo.geocaching.connector.capability.ISearchByViewPort;
 import cgeo.geocaching.enumerations.StatusCode;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.Viewport;
 import cgeo.geocaching.loaders.RecaptchaReceiver;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.Viewport;
 import cgeo.geocaching.network.Network;
 import cgeo.geocaching.network.Parameters;
 import cgeo.geocaching.settings.Settings;
@@ -193,7 +192,7 @@ public class GCConnector extends AbstractConnector implements ISearchByGeocode, 
     }
 
     @Override
-    public boolean isOwner(final ICache cache) {
+    public boolean isOwner(final Geocache cache) {
         final String user = Settings.getUsername();
         return StringUtils.isNotEmpty(user) && StringUtils.equalsIgnoreCase(cache.getOwnerUserId(), user);
     }
@@ -326,10 +325,6 @@ public class GCConnector extends AbstractConnector implements ISearchByGeocode, 
     public boolean login(Handler handler, Context fromActivity) {
         // login
         final StatusCode status = GCLogin.getInstance().login();
-
-        if (status == StatusCode.NO_ERROR) {
-            GCLogin.detectGcCustomDate();
-        }
 
         if (CgeoApplication.getInstance().showLoginToast && handler != null) {
             handler.sendMessage(handler.obtainMessage(0, status));

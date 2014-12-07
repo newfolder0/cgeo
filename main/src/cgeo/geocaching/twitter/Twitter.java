@@ -6,8 +6,8 @@ import cgeo.geocaching.Geocache;
 import cgeo.geocaching.LogEntry;
 import cgeo.geocaching.Trackable;
 import cgeo.geocaching.enumerations.LoadFlags;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.GeopointFormatter.Format;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.GeopointFormatter.Format;
 import cgeo.geocaching.network.Network;
 import cgeo.geocaching.network.OAuth;
 import cgeo.geocaching.network.OAuthTokens;
@@ -58,7 +58,7 @@ public final class Twitter {
                         "display_coordinates", "true");
             }
 
-            OAuth.signOAuth("api.twitter.com", "/1.1/statuses/update.json", "POST", true, parameters, new OAuthTokens(Settings.getTokenPublic(), Settings.getTokenSecret()), Settings.getKeyConsumerPublic(), Settings.getKeyConsumerSecret());
+            OAuth.signOAuth("api.twitter.com", "/1.1/statuses/update.json", "POST", true, parameters, new OAuthTokens(Settings.getTokenPublic(), Settings.getTokenSecret()), Settings.getTwitterKeyConsumerPublic(), Settings.getTwitterKeyConsumerSecret());
             final HttpResponse httpResponse = Network.postRequest("https://api.twitter.com/1.1/statuses/update.json", parameters);
             if (httpResponse != null) {
                 if (httpResponse.getStatusLine().getStatusCode() == 200) {

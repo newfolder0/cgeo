@@ -1,7 +1,6 @@
 package cgeo.geocaching.connector.ox;
 
 import cgeo.geocaching.Geocache;
-import cgeo.geocaching.ICache;
 import cgeo.geocaching.SearchResult;
 import cgeo.geocaching.connector.AbstractConnector;
 import cgeo.geocaching.connector.capability.ISearchByCenter;
@@ -9,9 +8,9 @@ import cgeo.geocaching.connector.capability.ISearchByGeocode;
 import cgeo.geocaching.connector.capability.ISearchByKeyword;
 import cgeo.geocaching.connector.capability.ISearchByViewPort;
 import cgeo.geocaching.connector.gc.MapTokens;
-import cgeo.geocaching.geopoint.Geopoint;
-import cgeo.geocaching.geopoint.Viewport;
 import cgeo.geocaching.loaders.RecaptchaReceiver;
+import cgeo.geocaching.location.Geopoint;
+import cgeo.geocaching.location.Viewport;
 import cgeo.geocaching.settings.Settings;
 import cgeo.geocaching.utils.CancellableHandler;
 
@@ -56,7 +55,7 @@ public class OXConnector extends AbstractConnector implements ISearchByCenter, I
     }
 
     @Override
-    public boolean isOwner(final ICache cache) {
+    public boolean isOwner(final Geocache cache) {
         return false;
     }
 
